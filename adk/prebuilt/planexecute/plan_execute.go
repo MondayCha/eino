@@ -338,7 +338,7 @@ func (p *planner) Run(ctx context.Context, input *adk.AgentInput,
 					return p.genInputFn(ctx, input.Messages)
 				}),
 			).
-			AppendChatModel(p.chatModel).
+			AppendChatModel(p.chatModel, compose.WithNodeName(p.Name(ctx))).
 			AppendLambda(
 				compose.CollectableLambda(func(ctx context.Context, sr *schema.StreamReader[adk.Message]) (adk.Message, error) {
 					if input.EnableStreaming {
@@ -703,7 +703,7 @@ func (r *replanner) Run(ctx context.Context, input *adk.AgentInput, _ ...adk.Age
 					return r.genInput(ctx)
 				}),
 			).
-			AppendChatModel(r.chatModel).
+			AppendChatModel(r.chatModel, compose.WithNodeName(r.Name(ctx))).
 			AppendLambda(
 				compose.CollectableLambda(func(ctx context.Context, sr *schema.StreamReader[adk.Message]) (adk.Message, error) {
 					if input.EnableStreaming {

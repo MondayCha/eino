@@ -595,7 +595,7 @@ func (a *ChatModelAgent) buildRunFunc(ctx context.Context) runFunc {
 					AppendLambda(compose.InvokableLambda(func(ctx context.Context, input *AgentInput) ([]Message, error) {
 						return a.genModelInput(ctx, instruction, input)
 					})).
-					AppendChatModel(a.model).
+					AppendChatModel(a.model, compose.WithNodeName(a.name)).
 					Compile(ctx, compose.WithGraphName(a.name))
 				if err != nil {
 					generator.Send(&AgentEvent{Err: err})

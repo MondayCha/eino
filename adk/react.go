@@ -186,7 +186,7 @@ func newReact(ctx context.Context, config *reactConfig) (reactGraph, error) {
 		return input, nil
 	}
 	_ = g.AddChatModelNode(chatModel_, chatModel,
-		compose.WithStatePreHandler(modelPreHandle), compose.WithStatePostHandler(modelPostHandle), compose.WithNodeName(chatModel_))
+		compose.WithStatePreHandler(modelPreHandle), compose.WithStatePostHandler(modelPostHandle), compose.WithNodeName(config.agentName))
 
 	toolPreHandle := func(ctx context.Context, input Message, st *State) (Message, error) {
 		input = st.Messages[len(st.Messages)-1]
